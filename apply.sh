@@ -24,7 +24,6 @@ fi
 
 # 主菜单函数
 main_menu() {
-    while true; do
         echo -e "${GREEN}欢迎使用服务器开荒一键脚本${NC}"
         echo "请选择功能："
         echo "1. 更新系统软件包"
