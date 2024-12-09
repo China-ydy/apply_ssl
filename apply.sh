@@ -24,20 +24,21 @@ fi
 
 # 主菜单函数
 main_menu() {
-    # 删除清屏命令，避免每次执行时清屏导致无法输入
-    # clear
-
-    echo -e "${GREEN}欢迎使用服务器开荒一键脚本${NC}"
-    echo "请选择功能："
-    echo "1. 更新系统软件包"
-    echo "2. 设置时区为中国标准时间"
-    echo "3. 自动申请 SSL 证书"
-    echo "4. 退出脚本"
-    echo
-
-    # 这里添加一个循环，避免无效选择导致一直返回到菜单
     while true; do
+        # 删除清屏命令，避免每次执行时清屏导致无法输入
+        # clear
+
+        echo -e "${GREEN}欢迎使用服务器开荒一键脚本${NC}"
+        echo "请选择功能："
+        echo "1. 更新系统软件包"
+        echo "2. 设置时区为中国标准时间"
+        echo "3. 自动申请 SSL 证书"
+        echo "4. 退出脚本"
+        echo
+
+        # 等待用户输入选择
         read -p "请输入数字选择对应功能: " choice
+
         case $choice in
             1)
                 update_system
