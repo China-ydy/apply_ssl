@@ -24,41 +24,40 @@ fi
 
 # 主菜单函数
 main_menu() {
-        echo -e "${GREEN}欢迎使用服务器开荒一键脚本${NC}"
-        echo "请选择功能："
-        echo "1. 更新系统软件包"
-        echo "2. 设置时区为中国标准时间"
-        echo "3. 自动申请 SSL 证书"
-        echo "4. 退出脚本"
-        echo
+    echo -e "${GREEN}欢迎使用服务器开荒一键脚本${NC}"
+    echo "请选择功能："
+    echo "1. 更新系统软件包"
+    echo "2. 设置时区为中国标准时间"
+    echo "3. 自动申请 SSL 证书"
+    echo "4. 退出脚本"
+    echo
 
-        # 等待用户输入选择
-        read -p "请输入数字选择对应功能: " choice
+    # 等待用户输入选择
+    read -p "请输入数字选择对应功能: " choice
 
-        # 调试输出：查看输入的内容
-        echo "用户输入了：$choice"
+    # 调试输出：查看输入的内容
+    echo "用户输入了：$choice"
 
-        case $choice in
-            1)
-                update_system
-                break
-                ;;
-            2)
-                set_timezone
-                break
-                ;;
-            3)
-                apply_ssl
-                break
-                ;;
-            4)
-                echo "退出脚本..."
-                exit 0
-                ;;
-            *)
-                echo -e "${RED}无效选择，请重新输入！${NC}"
-        esac
-    done
+    case $choice in
+        1)
+            update_system
+            break
+            ;;
+        2)
+            set_timezone
+            break
+            ;;
+        3)
+            apply_ssl
+            break
+            ;;
+        4)
+            echo "退出脚本..."
+            exit 0
+            ;;
+        *)
+            echo -e "${RED}无效选择，请重新输入！${NC}"
+    esac
 }
 
 # 功能 1：更新系统软件包
