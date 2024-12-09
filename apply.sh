@@ -23,12 +23,30 @@ fi
 main(){
     echo -e "${GREEN}欢迎使用服务器开荒一键脚本${NC}"
     echo "请选择功能："
-    echo "1. 更新系统软件包"
-    echo "2. 设置时区为中国标准时间"
-    echo "3. 自动申请 SSL 证书"
-    echo "4. 退出脚本"
+    echo "1.==更新系统软件包=="
+    echo "2.==设置时区为中国标准时间=="
+    echo "3.==自动申请 SSL 证书=="
+    echo "4.=!=退出脚本=!="
     echo "请输入要选择的功能"
     read choice
     echo -e "${GREEN}您选择的功能是：  ${choice}  ${NC}"
+    case ${choice} in
+        1)
+            update_system
+            ;;
+        *)
+            echo -e "${RED} 输入无效，请重新输入"
+    esac
 }
+update_system(){
+    echo "正在为您更新系统软件包，请稍后..."
+    sudo apt-get update && sudo apt-get updrade -y
+    echo "更新完成，按任意键返回主菜单"
+    read temp
+    main
+}
+
+
+
+
 main
