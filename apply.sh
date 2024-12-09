@@ -25,9 +25,6 @@ fi
 # 主菜单函数
 main_menu() {
     while true; do
-        # 删除清屏命令，避免每次执行时清屏导致无法输入
-        # clear
-
         echo -e "${GREEN}欢迎使用服务器开荒一键脚本${NC}"
         echo "请选择功能："
         echo "1. 更新系统软件包"
@@ -38,6 +35,9 @@ main_menu() {
 
         # 等待用户输入选择
         read -p "请输入数字选择对应功能: " choice
+
+        # 调试输出：查看输入的内容
+        echo "用户输入了：$choice"
 
         case $choice in
             1)
@@ -108,6 +108,9 @@ apply_ssl() {
         # 提示用户是否继续
         while true; do
             read -p "是否继续执行 SSL 证书申请？（y = 继续，n = 重新输入域名，q = 返回主页）： " user_choice
+            
+            # 调试输出：查看用户输入的选择
+            echo "用户选择了：$user_choice"
             
             if [[ "$user_choice" == "y" || "$user_choice" == "Y" ]]; then
                 echo "继续执行 SSL 证书申请..."
