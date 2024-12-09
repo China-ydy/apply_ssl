@@ -97,23 +97,26 @@ apply_ssl() {
         echo -e "${RED}警告：域名 $domain 并未解析到本机 IP ($local_ip)，当前解析结果为：$resolved_ip${NC}"
         
         # 提示用户是否继续
-        read -p "是否继续执行 SSL 证书申请？（y = 继续，n = 重新输入域名，q = 返回主页）： " user_choice
-        
-        if [[ "$user_choice" == "y" || "$user_choice" == "Y" ]]; then
-            echo "继续执行 SSL 证书申请..."
-        elif [[ "$user_choice" == "n" || "$user_choice" == "N" ]]; then
-            echo "请重新输入一个已正确解析的域名。"
-            apply_ssl  # 递归调用函数让用户重新输入域名
-            return
-        elif [[ "$user_choice" == "q" || "$user_choice" == "Q" ]]; then
-            echo "返回主页..."
-            main_menu  # 返回主菜单
-            return
-        else
-            echo -e "${RED}无效选择，返回主页...${NC}"
-            main_menu  # 返回主菜单
-            return
-        fi
+        while true; do
+            read -p "是否继续执行 SSL 证书申请？（y = 继续，n = 重新输入域名，q = 返回主页）： " user_choice
+            
+            if [[ "$user_choice" == "y" || "$user_choice" == "Y" ]]; then
+                echo "继续执行 SSL 证书申请..."
+                break  # 跳出循环，继续执行申请
+            elif [[ "$user_choice" == "n" || "$user_choice" == "N" ]]; then
+                echo "请重新输入一个已正确解析的域名。"
+                apply_ssl  # 递归调用，用户重新输入域名
+                return
+            elif [[ "$user_choice" == "q" || "$user_choice" == "Q" ]]; then
+                echo "返回主页..."
+                main_menu  # 返回主菜单
+                return
+            else
+                echo -e "${RED}无效选择，返回主页...${NC}"
+                main_menu  # 返回主菜单
+                return
+            fi
+        done
     fi
 
     # 执行 certbot 自动申请 SSL 证书
