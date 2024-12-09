@@ -24,7 +24,9 @@ fi
 
 # 主菜单函数
 main_menu() {
-    clear
+    # 删除清屏命令，避免每次执行时清屏导致无法输入
+    # clear
+
     echo -e "${GREEN}欢迎使用服务器开荒一键脚本${NC}"
     echo "请选择功能："
     echo "1. 更新系统软件包"
@@ -32,25 +34,31 @@ main_menu() {
     echo "3. 自动申请 SSL 证书"
     echo "4. 退出脚本"
     echo
-    read -p "请输入数字选择对应功能: " choice
-    case $choice in
-        1)
-            update_system
-            ;;
-        2)
-            set_timezone
-            ;;
-        3)
-            apply_ssl
-            ;;
-        4)
-            exit 0
-            ;;
-        *)
-            echo -e "${RED}无效选择，请重新输入！${NC}"
-            main_menu
-            ;;
-    esac
+
+    # 这里添加一个循环，避免无效选择导致一直返回到菜单
+    while true; do
+        read -p "请输入数字选择对应功能: " choice
+        case $choice in
+            1)
+                update_system
+                break
+                ;;
+            2)
+                set_timezone
+                break
+                ;;
+            3)
+                apply_ssl
+                break
+                ;;
+            4)
+                echo "退出脚本..."
+                exit 0
+                ;;
+            *)
+                echo -e "${RED}无效选择，请重新输入！${NC}"
+        esac
+    done
 }
 
 # 功能 1：更新系统软件包
@@ -105,8 +113,7 @@ apply_ssl() {
                 break  # 跳出循环，继续执行申请
             elif [[ "$user_choice" == "n" || "$user_choice" == "N" ]]; then
                 echo "请重新输入一个已正确解析的域名。"
-                apply_ssl  # 递归调用，用户重新输入域名
-                return
+                return  # 退出当前 apply_ssl 函数，让用户重新执行
             elif [[ "$user_choice" == "q" || "$user_choice" == "Q" ]]; then
                 echo "返回主页..."
                 main_menu  # 返回主菜单
